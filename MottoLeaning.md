@@ -1,0 +1,285 @@
+# Swift勉強会・文法編
+
+## Swiftとは
+Swiftとは、AppleのiOSおよびmacOS、Linuxで利用することのできるプログラミング言語で、iPhoneやiPadなどの端末やMacなどのPC向けのアプリを開発することができます。
+SwiftはXcodeを使って開発をします。RubyやPythonといったスクリプト言語の設計を取り入れているため、コーディングが楽にできます。
+型指定がないことや、セミコロンがいらないといったことが挙げられます。
+
+## playgrounds
+Swiftの動作やロジックを確認することのできる機能
+
+# Swift文法
+## Hello World
+
+```swift
+var str = "Hello World"
+print(str)
+
+```
+
+- print関数は標準出力に値を出力するグローバル関数です。引数は1つ以上指定することができます。異なる型の引数を指定することも可能です。キーワードseparator:をつけた文字列型の引数を渡すことで、複数表示する際の区切り文字を指定することができます。
+
+```swift
+
+print(2018,"4月",13,"(金)",separator:";")
+
+```
+
+## 変数・定数
+Swiftでは値を格納するためにlet定数とvar変数を使います。letは一度初期化されると変更できず、varは再代入できます。変更を意図しない場合は必ずletを使用します。
+
+```swift
+let hoge = "Swift"
+var huga = 11
+print(hoge)
+print(huga)
+huga = 10
+print(huga)
+```
+
+上記の例ではhogeはString型、hugaはInt型に推論されます。このためhugaにInt型でないものを再代入することはできません。また暗黙の型変換は行われません。
+
+| 種類 | 型名 | 説明 |
+| ---- | ---- | ----
+| 整数型 | Int | 整数全般に対する使用が推奨されている |
+| 整数型 | UInt | 符号なし整数値 |
+| 実数型 | Float |  浮動小数点数 |
+| 実数型 | Double | 浮動小数点数 |
+| 論理型 | Bool | リテラルでtrueかfalse |
+| 文字 | Character | Unicodeの１文字 |
+| 文字 | UnicodeScaler | Unicodeの文字コード |
+| 文字列 | String | Unicodeの文字列 |
+
+## 型宣言
+実際に文字列型の変数を宣言しましょう
+
+```swift
+ var hoge : String = "Hello World"
+ var num : Int = 1234
+ var num2 : Float = 34.5
+ var num3 : Double = 1.234
+ var flag : Bool = false
+
+ var huga = "Hello World"
+```
+
+Swiftでは肩の指定は、let/varの右に：型名で型宣言を行います。
+
+## 配列
+配列に格納できるインスタンスの個数には制限がなく、自由に格納や取り出しができます。ただし、同一配列内は全て同じ型である必要があります。
+
+```swift
+// Int型の配列
+let intArray = [1,2,3,4,5]
+print(intArray[3])
+// String型の配列
+var stringArray = ["Swift","iOS","Xcode"]
+print(stringArray[4])
+```
+
+空の配列は次のように宣言できます。
+
+```swift
+var doubleArray: [Double] = []
+var floatArray: Array<Float> = Array()
+```
+
+## 辞書型
+
+```swift
+let dictionary = ["Swift":4,"iOS":11,"Xcode":9]
+```
+
+空の辞書型は次のように宣言できます。
+
+```swift
+var emptyDictionary: [String: Int] = [:]
+```
+
+## オプショナル型
+Swiftでは空の状態であることをnilで表します。String型などの通常の型にはnilを保持することができません。オプショナル型にすることでnilを保持することができます。
+
+オプショナル型とはデータ型の一種で、変数の宣言時に使用します。オプショナル型の特徴は変数にnilの代入を許すことです。
+Swiftではnilのオブジェクトに対して操作をすることで、アプリケーションが落ちてしまうため基本的にnilを許容しません。
+しかし、オプショナル型を使用することでnilを扱うことができます。変数にnilを代入することもできます。
+
+変数をオプショナル型として宣言するには、データ型の最後に"?"か"!"をつけます。型宣言以外で使用する"?"や"!"は、オプショナル型とは別の意味を持ちます。
+
+```swift
+var hoge : String!
+var fuga : Int?
+
+var age: Int? = "23才"
+print(age)
+```
+
+### "?"と"!"の違いは
+"?"も"!"もオプショナル型ですが、"!"は特に暗黙的アンラップ型と言われています。アンラップとは日本語で開示といい、中身を取り出すという意味です。
+まずは一般的なオプショナル型"?"を見ていきます。
+
+```swift
+var a: Int? = 10
+print(a)
+
+var b: Int = 10
+a + b
+```
+
+"?"で宣言したオプショナル型のInt型の変数と、普通の　Int型では型が異なるため演算子で計算できません。
+そこでオプショナル型の値を通常の値に変換するために、アンラップという処理が必要になります。そのアンラップの方法の一つに強制的アンラップがあります。
+オプショナル型の変数の中にどのような値が入っていても関係なく、その値を取り出します。
+強制的アンラップの記述は、オプショナル型の変数の後に"!"をつけます。（この"!"はオプショナル型の変数宣言時の"!"とは異なります）
+
+```swift
+a! + b
+```
+
+アンラップする対象のオプショナル型がnilだった場合は、エラーとなります。そのため、アンラップする場合は必ずnil出ないことが保証されなければなりません。
+
+一方の暗黙的アンラップ型"!"は"?"とは違い、使用する際は必ず強制的アンラップをすることです。使用する際に自動的にアンラップしてくれます。
+
+```swift
+var a: Int! = 10
+var b: Int = 10
+
+a + b 
+
+```
+
+強制的アンラップと同様に、変数がnilの場合はエラーが起きます。暗黙的アンラップは、最初はnilで宣言したいが、使用する際には値が必ず入っているような時に使用します。
+
+## for文
+
+```swift
+ var num = 100
+ for var i = 0; i <= 100 ; i++ {
+     print(num)
+ }
+
+ for i in 1...10 {
+     print(i)
+ }
+
+ let dictionary = ["Swift":4,"iOS":11,"Xcode":9]
+ for (name,version) in dictionary {
+     print("\(name)\(version)")
+ }
+```
+
+## if文
+条件式の()はいりません。
+
+```swift
+ let num = 100
+ if num >= 100 {
+     print("true")
+ } else {
+     print("false")
+ }
+```
+
+範囲を指定する場合は、caseを用いて書くこともできます。
+
+```swift
+if num >= 50 && num <= 100 {
+    //
+}
+
+if case 50 ... 100 = num {
+    //
+}
+```
+
+## 関数
+Swiftの関数の定義の仕方は次のようになります。
+
+```swift
+ func 関数名(引数の変数名:引数の型) -> 戻り値の型 {
+
+ }
+
+ // 引数戻り値なし
+func sample() {
+}
+ 
+// 引数あり
+func sample(id :Int) {
+}
+ 
+// 戻り値あり
+func sample() -> Bool }
+  return true
+}
+ 
+// 引数・戻り値あり
+func sample(name: String) -> String {
+  return ""
+}
+
+```
+
+## Extension
+Swiftでは、すでに存在するクラス、構造体、列挙型、プロトコルに対して新しい機能を追加することができます。この機能を拡張（エクステンション）と呼びます。
+
+```swift
+
+extension String {
+    var length: Int {
+        return self.characters.count
+    }
+}
+
+let str = "Swift"
+print(str,str.length)
+
+```
+
+# iOSアプリの構成
+
+## CocoaTouch
+iOS アプリは Apple が整備する Cocoa Touch と呼ばれるフレームワーク群を利用して構成されています。Cocoa Touch の主要なフレームワークに Foundation と UIKit があります。
+Foundation は文字列やコレクションといったプログラミング言語としての基本的なクラスから、並行処理やネットワーク処理のためのクラスまで、基本的なプログラミングの概念を提供するツールが揃っています。
+UIKit はユーザインタフェース機能を提供するフレームワークです。ボタンやラベル、テーブルなどのiOS の GUIでアプリケーションを構成するための重要な機能のほとんどを担っています。
+
+## View
+Viewはユーザーに画像やテキストなどを画面の表示を行うコンポーネントで、UIViewとそのサブクラスにあたります。Viewは複数のサブViewを持つことができ、Viewを重なり合わせて一つの画面を作成します。
+Viewのオブヘクトには、UIImageView（画像）、UITextView（テキスト）、UILable（ラベル）、UIButton（ボタン）などが提供されています。
+
+
+## UIViewController
+View ControllerはUIViewControllerのサブクラスで、自身が管理する一つのviewを持ちます。View Controllerは管理しているViewの更新と、そのviewで発生したイベントを受け取ってハンドリングを行っています。
+アプリの画面は、1つ以上のView Controllerで構成されていて、UIWindowが持つRootViewControllerに、必要に応じて複数のView Controllerが重なり、もしくは遷移してアプリの機能を提供しています。
+
+## まとめ
+iOSアプリは原則的に一つのウィンドウ（UIWindow)を持ち、その上に必要なViewを積み重ねていきます。ViewにはViewControllerによって直接管理されるものと、そのsubviewとして表示されるだけのView Controllerとは対応しないViewがあります。
+
+<img src="img.png" >
+
+## UIImageView(UIKit)
+UIImageViewクラスは、画面上に画像を表示する管理クラスです。画面上に画像を表示したいときに使用じます。
+基本的な使い方は次のようになります。
+
+```swift
+
+//imageViewの位置とサイズを設定
+imageView.frame = CGRect(x: self.view.frame.width / 2 - 150, y: self.view.frame.height / 2 - 150, width: 300, height: 300)
+
+//画像を生成。[fussan-blog.png]の部分は自分のアップロードした画像名に変更してね。
+let image = UIImage(named:"画像名")!
+
+//生成した画像をimageViewに設定
+imageView.image = image
+
+```
+
+- CGRect
+対象のオブジェクトの位置とサイズの両方を管理するクラスです。
+生成するには位置（x座標、y座標）とサイズ（幅、高さ）を指定します。
+
+- UIImage
+画像を管理するクラスです。背景に画像を表示したり、ボタンに画像を表示したりと、プログラム中で画像を扱う際に使用します。
+画像ファイルを一度このオブジェクトにしてから、UIImageViewやUIButtonなどに渡す必要があります。
+
+## UIPageViewController(UIKit)
+画面遷移に使われるコントローラーの一つです。
+複数のUIViewContorollerを並べて配置することができ、そのコントローラーをスワイプで遷移させることができます。
