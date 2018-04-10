@@ -39,17 +39,6 @@ print(huga)
 
 上記の例ではhogeはString型、hugaはInt型に推論されます。このためhugaにInt型でないものを再代入することはできません。また暗黙の型変換は行われません。
 
-| 種類 | 型名 | 説明 |
-| ---- | ---- | ----
-| 整数型 | Int | 整数全般に対する使用が推奨されている |
-| 整数型 | UInt | 符号なし整数値 |
-| 実数型 | Float |  浮動小数点数 |
-| 実数型 | Double | 浮動小数点数 |
-| 論理型 | Bool | リテラルでtrueかfalse |
-| 文字 | Character | Unicodeの１文字 |
-| 文字 | UnicodeScaler | Unicodeの文字コード |
-| 文字列 | String | Unicodeの文字列 |
-
 ## 型宣言
 実際に文字列型の変数を宣言しましょう
 
@@ -63,7 +52,18 @@ print(huga)
  var huga = "Hello World"
 ```
 
-Swiftでは肩の指定は、let/varの右に：型名で型宣言を行います。
+Swiftでは型の指定は、let/varの右に：型名で型宣言を行います。
+
+| 種類 | 型名 | 説明 |
+| ---- | ---- | ----
+| 整数型 | Int | 整数全般に対する使用が推奨されている |
+| 整数型 | UInt | 符号なし整数値 |
+| 実数型 | Float |  浮動小数点数 |
+| 実数型 | Double | 浮動小数点数 |
+| 論理型 | Bool | リテラルでtrueかfalse |
+| 文字 | Character | Unicodeの１文字 |
+| 文字 | UnicodeScaler | Unicodeの文字コード |
+| 文字列 | String | Unicodeの文字列 |
 
 ## 配列
 配列に格納できるインスタンスの個数には制限がなく、自由に格納や取り出しができます。ただし、同一配列内は全て同じ型である必要があります。
@@ -190,6 +190,36 @@ if case 50 ... 100 = num {
 }
 ```
 
+# gaurd
+guardは条件に一致なかった場合に、処理を中断させるための構文です。
+
+```swift
+let stack = ["01","02","03","ab","cd"]
+for str in stack:
+    guard let v = Int(str) else {
+        print(str + "??")
+        break
+    }
+    print(v)
+}
+```
+
+条件式に記述した条件が成立しなかった場合にelse文が実行され、そのコードブロックから抜けます。
+else文の中には、必ず実行されるbreakやreturn、あるいは例外処理などのgurad文を含む実行中のコードブロックから抜け出す処理を記述しなければなりません。
+先ほど説明したOptional型のアンラップする際によく使用されます。
+
+```swift
+func guardTest(num: Int?) {
+    guard let unwrappedNum = num else { return }
+    print(num) 
+    print(unwrappedNum) 
+}
+
+guardTest(num:5)
+guardTest(num:nil)
+```
+
+
 ## 関数
 Swiftの関数の定義の仕方は次のようになります。
 
@@ -260,6 +290,8 @@ UIImageViewクラスは、画面上に画像を表示する管理クラスです
 基本的な使い方は次のようになります。
 
 ```swift
+// UIImageViewの生成
+var uiImageView: UIImageView = UIImageView()
 
 //imageViewの位置とサイズを設定
 imageView.frame = CGRect(x: self.view.frame.width / 2 - 150, y: self.view.frame.height / 2 - 150, width: 300, height: 300)
@@ -270,6 +302,8 @@ let image = UIImage(named:"画像名")!
 //生成した画像をimageViewに設定
 imageView.image = image
 
+// UIImageViewにImageViewをセットする
+self.
 ```
 
 - CGRect
@@ -283,3 +317,5 @@ imageView.image = image
 ## UIPageViewController(UIKit)
 画面遷移に使われるコントローラーの一つです。
 複数のUIViewContorollerを並べて配置することができ、そのコントローラーをスワイプで遷移させることができます。
+
+# UIPageViewControllerDataSource
