@@ -188,14 +188,14 @@ a + b // 20
 
 強制的アンラップと同様に、変数がnilの場合はエラーが起きます。暗黙的アンラップは、最初はnilで宣言したいが、使用する際には値が必ず入っているような時に使用します。
 
-'''swift
+```swift
 var num1: Int?
 var num2: Int!
 let num: Int = 10
 
 num1 + 10 //Error
 num2 + 10 //Error
-'''
+```
 
 ## for文
 
