@@ -369,6 +369,6 @@ self.view.addSubview(imageView)
 画面遷移に使われるコントローラーの一つです。
 複数のUIViewContorollerを並べて配置することができ、そのコントローラーをスワイプで遷移させることができます。
 
-# UIPageViewControllerDataSource
+## UIPageViewControllerDataSource
 ジェスチャーに応じて、UIPageViewControllerにViewControllerを提供するプロトコルです。
 UIPageViewControllerクラスでページングを行う際に、スワイプの向きに合わせて表示するViewControllerを返します。
