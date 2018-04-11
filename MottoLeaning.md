@@ -12,8 +12,8 @@ Swiftの動作やロジックを確認することのできる機能
 ## Hello World
 
 ```swift
-var str = "Hello World"
-print(str)
+var str = "Hello, playground"
+print(str) // Hello, playground
 
 ```
 
@@ -21,7 +21,7 @@ print(str)
 
 ```swift
 
-print(2018,"4月",13,"(金)",separator:";")
+print(2018,"4月",13,"(金)",separator:";") // 2018;4月;13;(金)
 
 ```
 
@@ -29,30 +29,37 @@ print(2018,"4月",13,"(金)",separator:";")
 Swiftでは値を格納するためにlet定数とvar変数を使います。letは一度初期化されると変更できず、varは再代入できます。変更を意図しない場合は必ずletを使用します。
 
 ```swift
-let hoge = "Swift"
-var huga = 11
-print(hoge)
-print(huga)
-huga = 10
-print(huga)
+let str = "Swift"
+var num = 11
+print(str,type(of:str),separator:";") // Swift;String
+print(num,type(of:num),separator:";") // 11;Int
+
+num = 10
+print(num) // 10
+
 ```
 
-上記の例ではhogeはString型、hugaはInt型に推論されます。このためhugaにInt型でないものを再代入することはできません。また暗黙の型変換は行われません。
+- type(of:)
+
 
 ## 型宣言
 実際に文字列型の変数を宣言しましょう
 
 ```swift
- var hoge : String = "Hello World"
+ var str : String = "Hello World"
  var num : Int = 1234
  var num2 : Float = 34.5
  var num3 : Double = 1.234
  var flag : Bool = false
 
- var huga = "Hello World"
+ var strnum = "666"
+
+ num + strnum
+ num + num2
 ```
 
 Swiftでは型の指定は、let/varの右に：型名で型宣言を行います。
+上記の例ではhogeはString型、hugaはInt型に推論されます。このためhugaにInt型でないものを再代入することはできません。また暗黙の型変換は行われません。
 
 | 種類 | 型名 | 説明 |
 | ---- | ---- | ----
@@ -71,10 +78,30 @@ Swiftでは型の指定は、let/varの右に：型名で型宣言を行いま�
 ```swift
 // Int型の配列
 let intArray = [1,2,3,4,5]
-print(intArray[3])
+print(intArray[3]) // 4
 // String型の配列
 var stringArray = ["Swift","iOS","Xcode"]
-print(stringArray[4])
+print(stringArray[4]) // Fatal error: Index out of range
+
+// 件数確認
+intArray.capacity
+intArray.startIndex
+intArray.endIndex
+intArray.count
+
+// 追加
+stringArray.append("iPhone")
+// 挿入
+stringArray.insert("i0S11", atIndex: 1)
+// 反転
+stringArray.reverse()
+// 取得
+stringArray[0]
+stringArray[0...2]
+// 削除
+stringArray.removeAtIndex(0)
+stringArray.removeAll()
+
 ```
 
 空の配列は次のように宣言できます。
@@ -87,7 +114,19 @@ var floatArray: Array<Float> = Array()
 ## 辞書型
 
 ```swift
-let dictionary = ["Swift":4,"iOS":11,"Xcode":9]
+let dictionary: [String:Int] = ["Swift":4,"iOS":11,"Xcode":9]
+
+var dictionary2: [String:Any] = ["a":123,"b":"abc"]
+
+// 値へのアクセス
+let value = dictionary["iOS"]
+
+// 値の更新
+dictionary2["a"] = "Swift"
+
+// 値の削除
+dictionary2["Xcode"] = nil
+
 ```
 
 空の辞書型は次のように宣言できます。
@@ -111,6 +150,7 @@ var fuga : Int?
 
 var age: Int? = "23才"
 print(age)
+print(age!)
 ```
 
 ### "?"と"!"の違いは
