@@ -148,9 +148,11 @@ Swiftではnilのオブジェクトに対して操作をすることで、アプ
 var hoge : String!
 var fuga : Int?
 
-var age: Int? = "23才"
-print(age)
-print(age!)
+var age: Int? 
+print(age) // nil
+age = 23
+print(age) // Optional(23)
+print(age!) // 23
 ```
 
 ### "?"と"!"の違いは
@@ -159,34 +161,41 @@ print(age!)
 
 ```swift
 var a: Int? = 10
-print(a)
+print(a) // Optional(10)
 
 var b: Int = 10
-a + b
+a + b // Error
 ```
 
-"?"で宣言したオプショナル型のInt型の変数と、普通の　Int型では型が異なるため演算子で計算できません。
+"?"で宣言したオプショナル型のInt型の変数と、普通のInt型では型が異なるため演算子で計算できません。
 そこでオプショナル型の値を通常の値に変換するために、アンラップという処理が必要になります。そのアンラップの方法の一つに強制的アンラップがあります。
 オプショナル型の変数の中にどのような値が入っていても関係なく、その値を取り出します。
 強制的アンラップの記述は、オプショナル型の変数の後に"!"をつけます。（この"!"はオプショナル型の変数宣言時の"!"とは異なります）
 
 ```swift
-a! + b
+a! + b // 20
 ```
 
 アンラップする対象のオプショナル型がnilだった場合は、エラーとなります。そのため、アンラップする場合は必ずnil出ないことが保証されなければなりません。
-
 一方の暗黙的アンラップ型"!"は"?"とは違い、使用する際は必ず強制的アンラップをすることです。使用する際に自動的にアンラップしてくれます。
 
 ```swift
 var a: Int! = 10
 var b: Int = 10
 
-a + b 
-
+a + b // 20
 ```
 
 強制的アンラップと同様に、変数がnilの場合はエラーが起きます。暗黙的アンラップは、最初はnilで宣言したいが、使用する際には値が必ず入っているような時に使用します。
+
+'''swift
+var num1: Int?
+var num2: Int!
+let num: Int = 10
+
+num1 + 10 //Error
+num2 + 10 //Error
+'''
 
 ## for文
 
@@ -202,7 +211,7 @@ a + b
 
  let dictionary = ["Swift":4,"iOS":11,"Xcode":9]
  for (name,version) in dictionary {
-     print("\(name)\(version)")
+     print("name",name,"version",version,separator:";")
  }
 ```
 
@@ -313,7 +322,7 @@ UIKit はユーザインタフェース機能を提供するフレームワー�
 
 ## View
 Viewはユーザーに画像やテキストなどを画面の表示を行うコンポーネントで、UIViewとそのサブクラスにあたります。Viewは複数のサブViewを持つことができ、Viewを重なり合わせて一つの画面を作成します。
-Viewのオブヘクトには、UIImageView（画像）、UITextView（テキスト）、UILable（ラベル）、UIButton（ボタン）などが提供されています。
+Viewのオブジェクトには、UIImageView（画像）、UITextView（テキスト）、UILable（ラベル）、UIButton（ボタン）などが提供されています。
 
 
 ## UIViewController
@@ -345,7 +354,7 @@ let image = UIImage(named:"画像名")!
 imageView.image = image
 
 // UIImageViewにImageViewをセットする
-self.
+self.view.addSubview(imageView)
 ```
 
 - CGRect
@@ -361,3 +370,5 @@ self.
 複数のUIViewContorollerを並べて配置することができ、そのコントローラーをスワイプで遷移させることができます。
 
 # UIPageViewControllerDataSource
+ジェスチャーに応じて、UIPageViewControllerにViewControllerを提供するプロトコルです。
+UIPageViewControllerクラスでページングを行う際に、スワイプの向きに合わせて表示するViewControllerを返します。
