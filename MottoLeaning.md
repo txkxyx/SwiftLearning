@@ -201,17 +201,22 @@ num2 + 10 //Error
 
 ```swift
  var num = 100
+ // Swift3.0から書けなくなった
  for var i = 0; i <= 100 ; i++ {
      print(num)
  }
-
- for i in 1...10 {
+// 100以下
+ for i in 1...num {
      print(i)
  }
-
+// 100未満
+ for i in 1..<num {
+     print(i)
+　}
+// 辞書型のfor文
  let dictionary = ["Swift":4,"iOS":11,"Xcode":9]
- for (name,version) in dictionary {
-     print("name",name,"version",version,separator:";")
+ for (key,value) in dictionary {
+     print("key",key,"value",value,separator:";")
  }
 ```
 
@@ -231,11 +236,11 @@ num2 + 10 //Error
 
 ```swift
 if num >= 50 && num <= 100 {
-    //
+    print("Ture")
 }
 
 if case 50 ... 100 = num {
-    //
+    print("Ture")
 }
 ```
 
@@ -243,13 +248,13 @@ if case 50 ... 100 = num {
 guardは条件に一致なかった場合に、処理を中断させるための構文です。
 
 ```swift
-let stack = ["01","02","03","ab","cd"]
-for str in stack:
+let stack = ["1","2","3","ab","cd"]
+for str in stack{
     guard let v = Int(str) else {
-        print(str + "??")
+        print(str + "??") // ab??
         break
     }
-    print(v)
+    print(v) // 1 2 3
 }
 ```
 
@@ -299,6 +304,7 @@ func sample(name: String) -> String {
 
 ## Extension
 Swiftでは、すでに存在するクラス、構造体、列挙型、プロトコルに対して新しい機能を追加することができます。この機能を拡張（エクステンション）と呼びます。
+Swiftの文字列型には文字の長さを測るlengthプロパティがありません。
 
 ```swift
 
