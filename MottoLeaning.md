@@ -17,7 +17,8 @@ print(str) // Hello, playground
 
 ```
 
-- print関数は標準出力に値を出力するグローバル関数です。引数は1つ以上指定することができます。異なる型の引数を指定することも可能です。キーワードseparator:をつけた文字列型の引数を渡すことで、複数表示する際の区切り文字を指定することができます。
+- print()
+print関数は標準出力に値を出力するグローバル関数です。引数は1つ以上指定することができます。異なる型の引数を指定することも可能です。キーワードseparator:をつけた文字列型の引数を渡すことで、複数表示する際の区切り文字を指定することができます。
 
 ```swift
 
@@ -26,40 +27,49 @@ print(2018,"4月",13,"(金)",separator:";") // 2018;4月;13;(金)
 ```
 
 ## 変数・定数
-Swiftでは値を格納するためにlet定数とvar変数を使います。letは一度初期化されると変更できず、varは再代入できます。変更を意図しない場合は必ずletを使用します。
+
+Swiftでは値を格納するために定数か変数であるかの定義を必ず行う必要があります。変数の場合はvarを、定数の場合はletを使用します。
+letは一度初期化されると変更できず、varは再代入できます。変更を意図しない場合は必ずletを使用します。
 
 ```swift
 let str = "Swift"
 var num = 11
-print(str,type(of:str),separator:";") // Swift;String
-print(num,type(of:num),separator:";") // 11;Int
 
 num = 10
 print(num) // 10
 
 ```
 
-- type(of:)
-
 
 ## 型宣言
-実際に文字列型の変数を宣言しましょう
+Swiftでは型の指定は、let・varの右に変数名：型名で型宣言を行います。
 
 ```swift
- var str : String = "Hello World"
- var num : Int = 1234
- var num2 : Float = 34.5
- var num3 : Double = 1.234
- var flag : Bool = false
+ var str: String = "Hello World"
+ var num: Int = 1234
+ var num2: Float = 34.5
+ var num3: Double = 1.234
+ var flag: Bool = false
 
- var strnum = "666"
+ print(str,type(of:str),separator:";") // Swift;String
+ print(num,type(of:num),separator:";") // 11;Int
 
- num + strnum
- num + num2
+// 型推論
+ var str1 = "Swift"
+ var num1 = 10
+
+// 暗黙の型変換は行われない
+ let strnum = "666"
+ let number = 10
+ let number2 = 10.5
+ number + strnum // 整数　＋　文字列
+ number + number2 // 整数　＋　実数
 ```
 
-Swiftでは型の指定は、let/varの右に：型名で型宣言を行います。
-上記の例ではhogeはString型、hugaはInt型に推論されます。このためhugaにInt型でないものを再代入することはできません。また暗黙の型変換は行われません。
+- type(of:)
+引数で渡され値の型名を取得する関数です。
+
+上記の例ではstr1はString型、num1はInt型に推論されます。このためnumにInt型でないものを再代入することはできません。また暗黙の型変換は行われません。
 
 | 種類 | 型名 | 説明 |
 | ---- | ---- | ----
@@ -82,12 +92,6 @@ print(intArray[3]) // 4
 // String型の配列
 var stringArray = ["Swift","iOS","Xcode"]
 print(stringArray[4]) // Fatal error: Index out of range
-
-// 件数確認
-intArray.capacity
-intArray.startIndex
-intArray.endIndex
-intArray.count
 
 // 追加
 stringArray.append("iPhone")
@@ -112,10 +116,12 @@ var floatArray: Array<Float> = Array()
 ```
 
 ## 辞書型
+数値や文字列をkeyにして、値を格納や参照を行うことができます。
 
 ```swift
+// 辞書型の宣言
 let dictionary: [String:Int] = ["Swift":4,"iOS":11,"Xcode":9]
-
+// ValueにAnyを指定することで複数の型を格納できます
 var dictionary2: [String:Any] = ["a":123,"b":"abc"]
 
 // 値へのアクセス
@@ -125,7 +131,7 @@ let value = dictionary["iOS"]
 dictionary2["a"] = "Swift"
 
 // 値の削除
-dictionary2["Xcode"] = nil
+dictionary["Xcode"] = nil
 
 ```
 
@@ -145,6 +151,7 @@ Swiftではnilのオブジェクトに対して操作をすることで、アプ
 変数をオプショナル型として宣言するには、データ型の最後に"?"か"!"をつけます。型宣言以外で使用する"?"や"!"は、オプショナル型とは別の意味を持ちます。
 
 ```swift
+// オプショナル型の宣言
 var hoge : String!
 var fuga : Int?
 
@@ -156,7 +163,7 @@ print(age!) // 23
 ```
 
 ### "?"と"!"の違いは
-"?"も"!"もオプショナル型ですが、"!"は特に暗黙的アンラップ型と言われています。アンラップとは日本語で開示といい、中身を取り出すという意味です。
+"?"も"!"もオプショナル型ですが、"!"は特に暗黙的アンラップ型と言われるオプショナル型です。アンラップとは日本語で開示といい、中身を取り出すという意味です。
 まずは一般的なオプショナル型"?"を見ていきます。
 
 ```swift
@@ -168,7 +175,9 @@ a + b // Error
 ```
 
 "?"で宣言したオプショナル型のInt型の変数と、普通のInt型では型が異なるため演算子で計算できません。
-そこでオプショナル型の値を通常の値に変換するために、アンラップという処理が必要になります。そのアンラップの方法の一つに強制的アンラップがあります。
+そこでオプショナル型の値を通常の値に変換する、アンラップという処理が必要になります。
+そこで変数の後ろに"!"をつけることで通常の値に変換することができます。
+この"!"を用いたアンラップの方法を強制的アンラップと言います。
 オプショナル型の変数の中にどのような値が入っていても関係なく、その値を取り出します。
 強制的アンラップの記述は、オプショナル型の変数の後に"!"をつけます。（この"!"はオプショナル型の変数宣言時の"!"とは異なります）
 
@@ -177,6 +186,7 @@ a! + b // 20
 ```
 
 アンラップする対象のオプショナル型がnilだった場合は、エラーとなります。そのため、アンラップする場合は必ずnil出ないことが保証されなければなりません。
+
 一方の暗黙的アンラップ型"!"は"?"とは違い、使用する際は必ず強制的アンラップをすることです。使用する際に自動的にアンラップしてくれます。
 
 ```swift
@@ -186,9 +196,10 @@ var b: Int = 10
 a + b // 20
 ```
 
-強制的アンラップと同様に、変数がnilの場合はエラーが起きます。暗黙的アンラップは、最初はnilで宣言したいが、使用する際には値が必ず入っているような時に使用します。
+暗黙的アンラップは同様に、変数がnilの場合はエラーが起きます。暗黙的アンラップは、最初はnilで宣言したいが、使用する際には値が必ず入っているような時に使用します。
 
 ```swift
+// 値がnilの場合はエラーになります
 var num1: Int?
 var num2: Int!
 let num: Int = 10
@@ -198,7 +209,7 @@ num2 + 10 //Error
 ```
 
 ## for文
-
+Swift3.0から単純なfor文の構文が使用できなくなり、for in を用いるようになりました。
 ```swift
  var num = 100
  // Swift3.0から書けなくなった
@@ -247,6 +258,8 @@ if case 50 ... 100 = num {
 # gaurd
 guardは条件に一致なかった場合に、処理を中断させるための構文です。
 
+例）文字列の配列内の要素を数値に変換し、変換できなかった場合は処理を中断
+
 ```swift
 let stack = ["1","2","3","ab","cd"]
 for str in stack{
@@ -260,6 +273,7 @@ for str in stack{
 
 条件式に記述した条件が成立しなかった場合にelse文が実行され、そのコードブロックから抜けます。
 else文の中には、必ず実行されるbreakやreturn、あるいは例外処理などのgurad文を含む実行中のコードブロックから抜け出す処理を記述しなければなりません。
+
 先ほど説明したOptional型のアンラップする際によく使用されます。
 
 ```swift
@@ -322,14 +336,13 @@ print(str,str.length)
 # iOSアプリの構成
 
 ## CocoaTouch
-iOS アプリは Apple が整備する Cocoa Touch と呼ばれるフレームワーク群を利用して構成されています。Cocoa Touch の主要なフレームワークに Foundation と UIKit があります。
-Foundation は文字列やコレクションといったプログラミング言語としての基本的なクラスから、並行処理やネットワーク処理のためのクラスまで、基本的なプログラミングの概念を提供するツールが揃っています。
-UIKit はユーザインタフェース機能を提供するフレームワークです。ボタンやラベル、テーブルなどのiOS の GUIでアプリケーションを構成するための重要な機能のほとんどを担っています。
+iOSアプリはAppleが提供するCocoa Touchと呼ばれるフレームワーク群を利用して構成されています。Cocoa Touchの主要なフレームワークにFoundationとUIKitがあります。
+Foundationは文字列やコレクションといったプログラミング言語としての基本的なクラスから、並行処理やネットワーク処理のためのクラスまで、基本的なプログラミングの概念を提供するツールが揃っています。
+UIKitはユーザインタフェース機能を提供するフレームワークです。ボタンやラベル、テーブルなどのiOSのGUIでアプリケーションを構成するための重要な機能のほとんどを担っています。
 
 ## View
 Viewはユーザーに画像やテキストなどを画面の表示を行うコンポーネントで、UIViewとそのサブクラスにあたります。Viewは複数のサブViewを持つことができ、Viewを重なり合わせて一つの画面を作成します。
 Viewのオブジェクトには、UIImageView（画像）、UITextView（テキスト）、UILable（ラベル）、UIButton（ボタン）などが提供されています。
-
 
 ## UIViewController
 View ControllerはUIViewControllerのサブクラスで、自身が管理する一つのviewを持ちます。View Controllerは管理しているViewの更新と、そのviewで発生したイベントを受け取ってハンドリングを行っています。
