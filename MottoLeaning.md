@@ -102,7 +102,7 @@ stringArray.reverse()
 stringArray[0]
 stringArray[0...2]
 // 削除
-stringArray.removeAtIndex(0)
+stringArray.remove(at:0)
 stringArray.removeAll()
 
 ```
