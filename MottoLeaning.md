@@ -361,13 +361,23 @@ Cocoa Touchの主要なフレームワークにFoundationとUIKitがあります
 Foundationは文字列やコレクションといったプログラミング言語としての基本的なクラスから、並行処理やネットワーク処理のためのクラスまで、基本的なプログラミングの概念を提供するツールが揃っています。  
 UIKitはユーザインタフェース機能を提供するフレームワークです。ボタンやラベル、テーブルなどのiOSのGUIでアプリケーションを構成するための重要な機能のほとんどを担っています。
 
+## iOSアプリの画面構成
+
+画面　＝　Viewの集まり　＋　ViewController
+
+iOSアプリでは複数のViewが重なり合って画面の見た目を構成しています。  
+ラベル、ボタン、テキスト入力など画面を構成し、機能を提供します。
+画面に配置されたViewは、ViewControllerが管理しています。 
+View同士の動きの連携や画面遷移、まとまった機能をつなげるなどアプリの流れの管理を行います。
+
+
 ## View
 Viewはユーザーに画像やテキストなどを画面の表示を行うコンポーネントで、UIViewとそのサブクラスにあたります。  
 Viewは複数のサブViewを持つことができ、Viewを重なり合わせて一つの画面を作成します。  
 Viewのオブジェクトには、UIImageView（画像）、UITextView（テキスト）、UILable（ラベル）、UIButton（ボタン）などが提供されています。
 
-## UIViewController
-View ControllerはUIViewControllerのサブクラスで、自身が管理する一つのviewを持ちます。  
+## ViewController
+View ControllerはUIViewControllerのサブクラスで、自身が管理する一つのViewを持ちます。  
 View Controllerは管理しているViewの更新と、そのviewで発生したイベントを受け取ってハンドリングを行っています。  
 アプリの画面は、1つ以上のView Controllerで構成されていて、UIWindowが持つRootViewControllerに、必要に応じて複数のView Controllerが重なり、もしくは遷移してアプリの機能を提供しています。
 
