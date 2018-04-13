@@ -345,13 +345,13 @@ iOSアプリでは複数のViewが重なり合って画面の見た目を構成�
 
 
 ## View
-Viewはユーザーに画像やテキストなどを画面の表示を行うコンポーネントで、UIViewとそのサブクラスにあたります。Viewは複数のサブViewを持つことができ、Viewを重なり合わせて一つの画面を作成します。Viewのオブジェクトには、UIImageView（画像）、UITextView（テキスト）、UILable（ラベル）、UIButton（ボタン）などが提供されています。
+Viewはユーザーに画像やテキストなどを画面の表示を行うコンポーネントで、UIViewとそのサブクラスにあたります。Viewは複数のサブViewを持つことができ、Viewを重なり合わせて一つの画面を作成します。ViewにはViewControllerによって直接管理されるRootViewと、そのSubviewとして表示されるだけのView Controllerとは対応しないViewがあります。Viewのオブジェクトには、UIImageView（画像）、UITextView（テキスト）、UILable（ラベル）、UIButton（ボタン）などが提供されています。
 
 ## ViewController
 View ControllerはUIViewControllerのサブクラスで、自身が管理する一つのViewを持ちます。View Controllerは管理しているViewの更新と、そのviewで発生したイベントを受け取ってハンドリングを行っています。アプリの画面は、1つ以上のView Controllerで構成されていて、UIWindowが持つRootViewControllerに、必要に応じて複数のView Controllerが重なり、もしくは遷移してアプリの機能を提供しています。
 
 ## まとめ
-iOSアプリは原則的に一つのウィンドウ（UIWindow)を持ち、その上に必要なViewを積み重ねていきます。ViewにはViewControllerによって直接管理されるものと、そのsubviewとして表示されるだけのView Controllerとは対応しないViewがあります。
+iOSアプリは、すべてのビューの親になるオブジェクトであるUIWindowを原則的に一つを持ち、その上に必要なViewを積み重ねていきます。ViewControllerにより各Viewが管理され、イベントのハンドリングや画面遷移などを行います。
 
 <img src="img.png" >
 
