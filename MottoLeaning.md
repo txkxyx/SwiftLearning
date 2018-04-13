@@ -5,11 +5,11 @@ Swiftとは、AppleのiOSおよびmacOS、Linuxで利用することのできる
 SwiftはXcodeを使って開発をします。RubyやPythonといったスクリプト言語の設計を取り入れているため、コーディングが楽にできます。  
 型指定がないことや、セミコロンがいらないといったことが挙げられます。
 
-## playgrounds
+## playground
 Swiftの動作やロジックを確認することのできる機能
 
 # Swift文法
-## Hello World
+## Hello Playground
 
 ```swift
 var str = "Hello, playground"
