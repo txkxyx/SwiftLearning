@@ -161,6 +161,9 @@ Swiftではnilのオブジェクトに対して操作をすることで、アプ
 型宣言以外で使用する"?"や"!"は、オプショナル型とは別の意味を持ちます。
 
 ```swift
+// nilを代入できない
+var a: String = nil
+var b = nil
 // オプショナル型の宣言
 var hoge : String!
 var fuga : Int?
